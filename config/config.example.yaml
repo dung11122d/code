@@ -1,0 +1,49 @@
+input_video: "D:/videos/input_cn.mp4"
+output_root: "D:/video_dubbing_outputs"
+ffmpeg_path: "ffmpeg"
+
+chrome:
+  chromedriver_path: "D:/tools/chromedriver-win64/chromedriver.exe"
+  binary: null
+  profile_dir: "D:/video_dubber/chrome_profile"
+  headless: false
+  debug_browser: true
+
+chatgpt:
+  url: "https://chatgpt.com/"
+  selectors:
+    prompt_input:
+      - { by: "css", value: "textarea[data-testid='prompt-textarea']" }
+      - { by: "css", value: "#prompt-textarea" }
+      - { by: "xpath", value: "//textarea[contains(@placeholder,'Message')]" }
+    send_button:
+      - { by: "css", value: "button[data-testid='send-button']" }
+      - { by: "xpath", value: "//button[@aria-label='Send message']" }
+    stop_button:
+      - { by: "css", value: "button[data-testid='stop-button']" }
+      - { by: "xpath", value: "//button[contains(@aria-label,'Stop')]" }
+    assistant_messages:
+      - { by: "css", value: "article[data-testid^='conversation-turn-'] div.markdown" }
+      - { by: "xpath", value: "//article//div[contains(@class,'markdown')]" }
+
+asr:
+  model: "large-v3"
+  device: "auto"
+  compute_type: "int8"
+  language: "zh"
+
+translation:
+  batch_size: 1
+  max_retries: 4
+  delay_sec: 1.2
+
+tts:
+  backend: "coqui" # coqui | piper
+  model: "tts_models/multilingual/multi-dataset/xtts_v2"
+  piper_exe: null
+  piper_model_path: null
+
+audio:
+  mix_mode: "voice_plus_bg" # voice_only | voice_plus_bg
+  background_gain_db: -18
+  ducking_db: -10
